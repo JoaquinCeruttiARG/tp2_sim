@@ -1,12 +1,11 @@
 import generator
-from generator import *
 
 # Función Principal - Menú
 
 def principal():
     op = 1
 
-    while op != 6:
+    while op != 9:
         print('\nMenú de opciones')
         print('1 - Generar Serie de Uniforme')
         print('2 - Generar serie Exponencial')
@@ -23,28 +22,44 @@ def principal():
             a = int(input('Ingrese el LI de la serie: '))
             b = int(input('Ingrese el LS de la serie: '))
             n = int(input('Ingrese el tamaño de la serie: '))
+            name = input('Ingrese el Nombre del archivo de la serie: ')
 
-            if ( a < b and ( 0 < n < 1000000)):
-                name = input('Ingrese el Nombre del archivo de la serie:')
+            if a < b and 0 < n <= 1000000:
                 generator.generadorUniforme(a, b, n, name)
-            elif a > b:
-                print('El LS NO puede ser menor al LI!')
-            elif 0 < n > 1000000:
-                print('n debe estar entre [1;1000000]!')
-
+            else:
+                print('Valores ingresados incorrectos.')
 
         elif op == 2:
-            pass;
+            l = float(input('Ingrese el valor de lambda (Lambda): '))
+            n = int(input('Ingrese el tamaño de la serie: '))
+            name = input('Ingrese el Nombre del archivo de la serie: ')
+
+            if l > 0 and 0 < n <= 1000000:
+                generator.generadorExponencial(l, n, name)
+            else:
+                print('Valores ingresados incorrectos.')
+
         elif op == 3:
-            pass;
+            m = float(input('Ingrese el valor de la media: '))
+            d = float(input('Ingrese el valor de la desviación estándar: '))
+            n = int(input('Ingrese el tamaño de la serie: '))
+            name = input('Ingrese el Nombre del archivo de la serie: ')
+
+            if d > 0 and 0 < n <= 1000000:
+                generator.generadorNormal(m, d, n, name)
+            else:
+                print('Valores ingresados incorrectos.')
+
         elif op == 4:
-            pass;
+            name = input('Ingrese el nombre del archivo de la serie: ')
+            generator.visualizarSerie(name)
+
         elif op == 5:
-            pass;
+            pass
         elif op == 6:
-            pass;
+            pass
         elif op == 7:
-            pass;
+            pass
         elif op == 8:
             print('\nAdiós!\n')
         else:
