@@ -1,5 +1,6 @@
 import tkinter as tk
 import distribuciones
+import mostrarSerieDatos
 
 
 def mostrarCampoCant_Muestras(ventana):
@@ -32,6 +33,7 @@ def uniforme():
         distribuciones.generarArchivo("aleatorios.txt", muestras)
         distribuciones.uniforme("aleatorios.txt", a, b)
         distribuciones.graficar("DistUniforme.txt", intervalos)
+        mostrarSerieDatos.cargarSerieDatos("DistUniforme.txt")
 
     ventana = tk.Tk()
     ventana.title("Distribucion Uniforme")
@@ -59,11 +61,12 @@ def normal():
         # Implementa la lógica de la Función 2 aquí
         muestras = pMuestras.get()
         intervalos = pIntervalos.get()
-        a = p3_entry.get()
-        b = p4_entry.get()
+        sigma = p3_entry.get()
+        media = p4_entry.get()
         distribuciones.generarArchivo("aleatorios.txt", muestras)
-        distribuciones.boxMoller("aleatorios.txt", a, b)
+        distribuciones.boxMoller("aleatorios.txt", sigma, media)
         distribuciones.graficar("DistNormal.txt", intervalos)
+        mostrarSerieDatos.cargarSerieDatos("DistNormal.txt")
 
     ventana = tk.Tk()
     ventana.title("Distribucion Normal")
@@ -90,10 +93,11 @@ def exponencial():
     def graficarExponencial():
         muestras = pMuestras.get()
         intervalos = pIntervalos.get()
-        a = p5_entry.get()
+        lambda1 = p5_entry.get()
         distribuciones.generarArchivo("aleatorios.txt", muestras)
-        distribuciones.dist_Exponencial("aleatorios.txt", a)
+        distribuciones.dist_Exponencial("aleatorios.txt", lambda1)
         distribuciones.graficar("DistExponencial.txt", intervalos)
+        mostrarSerieDatos.cargarSerieDatos("DistExponencial.txt")
 
     ventana = tk.Tk()
     ventana.title("Distribucion Exponancial")
