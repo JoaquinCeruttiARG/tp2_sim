@@ -3,7 +3,7 @@ import generadores as g
 import visualizacion
 import subprocess
 import os
-from PIL import Image, ImageTk
+import tkinter.messagebox as messagebox
 
 # Variable global para mantener el índice actual de la lista
 indice_actual = 0
@@ -83,7 +83,6 @@ def ventana_principal():
                     print(intervalo_seleccionado)
 
 
-
     # Función de botón confirmar  ---------------------------------------------
     def confirmar():
         global lista
@@ -98,6 +97,9 @@ def ventana_principal():
             distribucion_seleccionada = "normal"
         elif var_exponencial.get():
             distribucion_seleccionada = "exponencial"
+        else:
+            messagebox.showinfo("Error", "Debe seleccionar una distribución.")
+            return
 
         # Variable donde se almacena el tamaño de la muestra
         tamano_muestra = int(entry_tamano.get())
@@ -112,8 +114,11 @@ def ventana_principal():
         elif distribucion_seleccionada == "uniforme":
             limite_inferior = int(entry_inferior.get())
             limite_superior = int(entry_superior.get())
-        else:
-            print("Debe seleccionar una distribución")
+
+        # Verificar si al menos un checkbox de intervalo está marcado
+        if not any([var_10.get(), var_12.get(), var_16.get(), var_23.get()]):
+            messagebox.showinfo("Error", "Debe seleccionar al menos un intervalo.")
+            return  # No proceder si ningún intervalo está seleccionado
 
         # Llamada a los generadores
         if distribucion_seleccionada == "normal":
@@ -133,20 +138,6 @@ def ventana_principal():
         visualizacion.generar_y_visualizar(lista, intervalo_seleccionado)
         # Llamada a función que muestra el gráfico en ventana
         mostrar_imagen()
-
-
-        # Para ir chequeando en consola
-        print("Distribución seleccionada:", distribucion_seleccionada)
-        print("Tamaño de la muestra:", tamano_muestra)
-        if distribucion_seleccionada == "normal":
-            print("Media:", media)
-            print("Desviación:", desviacion)
-        if distribucion_seleccionada == "exponencial":
-            print("Lambda:", lam)
-        if distribucion_seleccionada == "uniforme":
-            print("Límite Inferior:", limite_inferior)
-            print("Límite Superior:", limite_superior)
-        print(lista)
 
         # Verificar si la lista está vacía
         if len(lista) == 0:
@@ -172,7 +163,7 @@ def ventana_principal():
         subprocess.Popen(["start", "", "/b",  ruta_absoluta], shell=True)  # Para sistemas Windows
 
 
-    # Función para moverse en la lista de números generados ---------------------------------------------
+    # Funciones para moverse en la lista de números generados ---------------------------------------------
     def mostrar_proximos_numeros():
         global indice_actual
         global lista
@@ -191,9 +182,30 @@ def ventana_principal():
         print(len(lista))
 
 
-    # Funcion siguiente ---------------------------------------------
+    def mostrar_anteriores_numeros():
+        global indice_actual
+        global lista
+
+        if indice_actual > 199:
+            entry_generados.config(state="normal")
+            entry_generados.delete("1.0", tk.END) #Borra cualquier contenido anterior
+            for elemento in lista[indice_actual-200: indice_actual]:
+                entry_generados.config(state="normal")
+                entry_generados.insert(tk.END, str(elemento) + "\n")
+            entry_generados.config(state="disabled")
+            indice_actual -= 200
+
+            # Pruebas
+            print(indice_actual)
+            print(len(lista))
+
+
+    # Funcion siguiente y anterior ---------------------------------------------
     def siguiente():
         mostrar_proximos_numeros()
+
+    def anterior():
+        mostrar_anteriores_numeros()
 
 
     # Ventana ---------------------------------------------
@@ -317,8 +329,8 @@ def ventana_principal():
     entry_generados = tk.Text(frame, width=50, height=10, state="disabled")
     entry_generados.grid(row=8, column=0, columnspan=3, padx=10, pady=10)
 
-    #boton_ant = tk.Button(frame, text="Anterior")
-    #boton_ant.grid(row=9, column=0, padx=(10, 0), pady=10, sticky=tk.W)
+    boton_ant = tk.Button(frame, text="Anterior", command=anterior)
+    boton_ant.grid(row=9, column=0, padx=(10, 0), pady=10, sticky=tk.W)
 
     boton_sig = tk.Button(frame, text="Siguiente", command=siguiente)
     boton_sig.grid(row=9, column=2)

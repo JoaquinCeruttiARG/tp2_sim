@@ -1,0 +1,12 @@
+        # Para ir chequeando en consola
+        print("Distribución seleccionada:", distribucion_seleccionada)
+        print("Tamaño de la muestra:", tamano_muestra)
+        if distribucion_seleccionada == "normal":
+            print("Media:", media)
+            print("Desviación:", desviacion)
+        if distribucion_seleccionada == "exponencial":
+            print("Lambda:", lam)
+        if distribucion_seleccionada == "uniforme":
+            print("Límite Inferior:", limite_inferior)
+            print("Límite Superior:", limite_superior)
+        print(lista)
