@@ -1,7 +1,9 @@
 import tkinter as tk
 import generadores as g
 import visualizacion
-
+import subprocess
+import os
+from PIL import Image, ImageTk
 
 # Variable global para mantener el índice actual de la lista
 indice_actual = 0
@@ -127,8 +129,10 @@ def ventana_principal():
                 indice_actual = 0
                 lista = g.generar_uniforme(limite_inferior, limite_superior, tamano_muestra)
 
-        # LLamada a funcion que gráfica y genera excel
+        # LLamada a función que gráfica y genera excel
         visualizacion.generar_y_visualizar(lista, intervalo_seleccionado)
+        # Llamada a función que muestra el gráfico en ventana
+        mostrar_imagen()
 
 
         # Para ir chequeando en consola
@@ -159,7 +163,16 @@ def ventana_principal():
             entry_generados.config(state="disabled")
 
 
-    # Funcion para moverse en la lista de números generados ---------------------------------------------
+    # Función para mostrar la imagen generada ---------------------------------------------
+    def mostrar_imagen():
+        # Obtener la ruta absoluta del directorio actual y el nombre de la imagen
+        ruta_absoluta = os.path.abspath("histograma.png")
+
+        # Ejecuta el comando para abrir la imagen con el visor de imágenes predeterminado
+        subprocess.Popen(["start", "", "/b",  ruta_absoluta], shell=True)  # Para sistemas Windows
+
+
+    # Función para moverse en la lista de números generados ---------------------------------------------
     def mostrar_proximos_numeros():
         global indice_actual
         global lista
