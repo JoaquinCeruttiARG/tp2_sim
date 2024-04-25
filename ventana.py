@@ -60,6 +60,7 @@ def ventana_principal():
     # Función de botón confirmar
     def confirmar():
         global lista
+        global indice_actual
 
         # Variable donde se almacena el tipo de distribucion seleccionada
         distribucion_seleccionada = ""
@@ -89,12 +90,15 @@ def ventana_principal():
         # Llamada a los generadores
         if distribucion_seleccionada == "normal":
             if isinstance(media, (float, int)) and isinstance(desviacion, (float, int)):
-                lista = g.generar_uniforme(media, desviacion, tamano_muestra)
+                indice_actual = 0
+                lista = g.generar_normal(media, desviacion, tamano_muestra)
         elif distribucion_seleccionada == "exponencial":
             if isinstance(lam, (float, int)):
+                indice_actual = 0
                 lista = g.generar_exponencial(lam, tamano_muestra)
         elif distribucion_seleccionada == "uniforme":
             if isinstance(limite_inferior, (float, int)) and isinstance(limite_superior, (float, int)):
+                indice_actual = 0
                 lista = g.generar_uniforme(limite_inferior, limite_superior, tamano_muestra)
 
 
@@ -131,9 +135,6 @@ def ventana_principal():
         global indice_actual
         global lista
 
-        # Pruebas
-        print(indice_actual)
-        print(len(lista))
 
         if indice_actual < len(lista):
             entry_generados.config(state="normal")
@@ -143,6 +144,10 @@ def ventana_principal():
                 entry_generados.insert(tk.END, str(elemento) + "\n")
             entry_generados.config(state="disabled")
             indice_actual += 200
+
+        # Pruebas
+        print(indice_actual)
+        print(len(lista))
 
 
     # Funcion siguiente
