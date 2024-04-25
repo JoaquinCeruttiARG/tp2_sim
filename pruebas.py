@@ -2,10 +2,12 @@ from scipy.stats import chi2_contingency, ks_2samp
 from scipy.stats import chisquare
 import numpy as np
 
+
 def realizar_prueba_chi_cuadrado(datos):
     muestra_teorica = datos
     chi2, p_valor_chi2, dof, expected = chi2_contingency([datos, muestra_teorica])
     print(f"Prueba de Chi cuadrado: Chi2 = {chi2}, p-valor = {p_valor_chi2}, grados de libertad = {dof}")
+
 
 def calculate_observed_frequencies(data, num_intervals):
     # Sort the data
@@ -29,7 +31,6 @@ def calculate_observed_frequencies(data, num_intervals):
     return observed_frequencies
 
 
-
 def prueba_chi_cuadrado(datos,intervalos, distribucion):
     if distribucion == 'uniforme':
        observed_frequencies=calculate_observed_frequencies(datos,intervalos)
@@ -49,8 +50,7 @@ def prueba_chi_cuadrado(datos,intervalos, distribucion):
        else:
             print("Se rechaza la hipotesis")
        
-       
-    
+
     elif distribucion == 'exponencial':
         # Calcular el parámetro lambda
         lambda_param = 1 / np.mean(datos)
@@ -69,10 +69,12 @@ def prueba_chi_cuadrado(datos,intervalos, distribucion):
     
     return p_value
 
+
 def realizar_prueba_ks(datos):
     muestra_teorica = np.random.normal(size=len(datos))
     D, p_valor_ks = ks_2samp(datos, muestra_teorica)
     print(f"Prueba de Kolmogorov-Smirnov: D = {D}, p-valor = {p_valor_ks}")
+
 
 def realizar_pruebas(datos, intervalos, distribucion):
     realizar_prueba_chi_cuadrado(datos)

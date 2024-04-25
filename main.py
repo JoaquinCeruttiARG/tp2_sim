@@ -1,6 +1,4 @@
-from generadores import generar_uniforme, generar_exponencial, generar_normal
 from visualizacion import generar_y_visualizar
-from pruebas import realizar_pruebas
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.drawing.image import Image

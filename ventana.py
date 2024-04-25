@@ -1,5 +1,7 @@
 import tkinter as tk
 import generadores as g
+import visualizacion
+
 
 # Variable global para mantener el índice actual de la lista
 indice_actual = 0
@@ -7,10 +9,14 @@ indice_actual = 0
 # Lista global donde se almacenan los valores generados
 lista =[]
 
+# Variable global para almacenar el valor del intervalo seleccionado
+intervalo_seleccionado = 10
+
+
 def ventana_principal():
 
 
-    # Función De Checkbox
+    # Función De Checkbox Distribuciones ---------------------------------------------
     def seleccionar_distribucion(distribucion_seleccionada):
         if distribucion_seleccionada == "uniforme":
             label_media.grid_remove()
@@ -57,10 +63,30 @@ def ventana_principal():
             c_uniforme.deselect()
             c_normal.deselect()
 
-    # Función de botón confirmar
+
+    # Funcion de CheckBox Intervalos ---------------------------------------------
+    def intervalo_seleccionado(var):
+        global intervalo_seleccionado
+        lista_intervalos = [10,12,16,23]
+
+        if var.get():
+            contador = -1
+            for check_var in checkbox_vars:
+                contador += 1
+                if check_var != var:
+                    check_var.set(False)
+                else:
+                    # Actualizar la variable de intervalo seleccionado
+                    intervalo_seleccionado = lista_intervalos[contador]
+                    print(intervalo_seleccionado)
+
+
+
+    # Función de botón confirmar  ---------------------------------------------
     def confirmar():
         global lista
         global indice_actual
+        global intervalo_seleccionado
 
         # Variable donde se almacena el tipo de distribucion seleccionada
         distribucion_seleccionada = ""
@@ -101,6 +127,9 @@ def ventana_principal():
                 indice_actual = 0
                 lista = g.generar_uniforme(limite_inferior, limite_superior, tamano_muestra)
 
+        # LLamada a funcion que gráfica y genera excel
+        visualizacion.generar_y_visualizar(lista, intervalo_seleccionado)
+
 
         # Para ir chequeando en consola
         print("Distribución seleccionada:", distribucion_seleccionada)
@@ -130,11 +159,10 @@ def ventana_principal():
             entry_generados.config(state="disabled")
 
 
-    # Funcion para moverse en la lista de números generados
+    # Funcion para moverse en la lista de números generados ---------------------------------------------
     def mostrar_proximos_numeros():
         global indice_actual
         global lista
-
 
         if indice_actual < len(lista):
             entry_generados.config(state="normal")
@@ -150,17 +178,17 @@ def ventana_principal():
         print(len(lista))
 
 
-    # Funcion siguiente
+    # Funcion siguiente ---------------------------------------------
     def siguiente():
         mostrar_proximos_numeros()
 
 
-    # Ventana
+    # Ventana ---------------------------------------------
     ventana = tk.Tk()
     ventana.title("Generador de Distribuciones Aleatorias")
 
 
-    # Frame
+    # Frame ---------------------------------------------
     frame = tk.Frame(ventana, width=600, height=1000)
     frame.pack(padx=50, pady=50)
 
@@ -168,7 +196,7 @@ def ventana_principal():
     label_dist.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
 
 
-    # CheckBox
+    # CheckBox Distribuciones ---------------------------------------------
     var_uniforme = tk.BooleanVar(value=True)
     c_uniforme = tk.Checkbutton(frame, text="Uniforme", command=lambda: seleccionar_distribucion("uniforme"),
                                 variable=var_uniforme)
@@ -185,7 +213,7 @@ def ventana_principal():
     c_exponencial.grid(row=0, column=3, padx=10, pady=10)
 
 
-    # Tamaño
+    # Tamaño ---------------------------------------------
     label_tamano = tk.Label(frame, text="Tamaño: ")
     label_tamano.grid(row=1, column=0, padx=10, pady=10, sticky=tk.W)
 
@@ -193,7 +221,7 @@ def ventana_principal():
     entry_tamano.grid(row=1, column=1, columnspan=3, padx=10, pady=10)
 
 
-    # Limites
+    # Limites ---------------------------------------------
     label_limites = tk.Label(frame, text="Limites: ")
     label_limites.grid(row=2, column=0, padx=10, pady=10, sticky=tk.W)
 
@@ -207,7 +235,7 @@ def ventana_principal():
     entry_superior.grid(row=2, column=3, padx=10, pady=10)
 
 
-    # Media
+    # Media ---------------------------------------------
     label_media = tk.Label(frame, text="Media: ")
     label_media.grid(row=3, column=0, padx=10, pady=10, sticky=tk.W)
     label_media.grid_remove()
@@ -217,7 +245,7 @@ def ventana_principal():
     entry_media.grid_remove()
 
 
-    # Desviacion
+    # Desviacion ---------------------------------------------
     label_desviacion = tk.Label(frame, text="Desviacion: ")
     label_desviacion.grid(row=4, column=0, padx=10, pady=10, sticky=tk.W)
     label_desviacion.grid_remove()
@@ -227,7 +255,7 @@ def ventana_principal():
     entry_desviacion.grid_remove()
 
 
-    # Lambda
+    # Lambda ---------------------------------------------
     label_lambda = tk.Label(frame, text="Lambda: ")
     label_lambda.grid(row=5, column=0, padx=10, pady=10, sticky=tk.W)
     label_lambda.grid_remove()
@@ -237,14 +265,41 @@ def ventana_principal():
     entry_lambda.grid_remove()
 
 
-    # Boton Confirmar
+    # Intervalos  ---------------------------------------------
+    label_int = tk.Label(frame, text="Intervalos: ")
+    label_int.grid(row=6, column=0, padx=10, pady=10, sticky=tk.W)
+
+    checkbox_vars = []
+
+    var_10 = tk.BooleanVar(value=True)
+    checkbox_vars.append(var_10)
+    c_10 = tk.Checkbutton(frame, text="10", variable=var_10, command=lambda: intervalo_seleccionado(var_10))
+    c_10.grid(row=6, column=1, padx=10, pady=10)
+
+    var_12 = tk.BooleanVar()
+    checkbox_vars.append(var_12)
+    c_12 = tk.Checkbutton(frame, text="12", variable=var_12, command=lambda: intervalo_seleccionado(var_12))
+    c_12.grid(row=6, column=2, padx=10, pady=10)
+
+    var_16 = tk.BooleanVar()
+    checkbox_vars.append(var_16)
+    c_16 = tk.Checkbutton(frame, text="16", variable=var_16, command=lambda: intervalo_seleccionado(var_16))
+    c_16.grid(row=6, column=3, padx=10, pady=10)
+
+    var_23 = tk.BooleanVar()
+    checkbox_vars.append(var_23)
+    c_23 = tk.Checkbutton(frame, text="23", variable=var_23, command=lambda: intervalo_seleccionado(var_23))
+    c_23.grid(row=6, column=4, padx=10, pady=10)
+
+
+    # Boton Confirmar ---------------------------------------------
     boton_1 = tk.Button(frame, text="Confirmar", command=confirmar)
-    boton_1.grid(row=6, column=0, columnspan=4, padx=(10, 0), pady=10, sticky=tk.W)
+    boton_1.grid(row=7, column=0, columnspan=4, padx=(10, 0), pady=10, sticky=tk.W)
 
 
-    # Numeros Generados
+    # Numeros Generados ---------------------------------------------
     label_generados = tk.Label(frame, text="Números generados: ")
-    label_generados.grid(row=7, column=0, padx=10, pady=10, sticky=tk.W)
+    label_generados.grid(row=8, column=0, padx=10, pady=10, sticky=tk.W)
 
     entry_generados = tk.Text(frame, width=50, height=10, state="disabled")
     entry_generados.grid(row=8, column=0, columnspan=3, padx=10, pady=10)
