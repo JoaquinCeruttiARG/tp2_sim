@@ -10,7 +10,7 @@ def frecuenciasObservadas(numeros, intervalos):
 
 
 def generar_y_visualizar(datos,intervalos):
-    plt.hist(datos, bins=intervalos, density=True, alpha=0.6, color='g',edgecolor='black', rwidth=0.85)
+    plt.hist(datos, bins=intervalos, alpha=0.6, color='g',edgecolor='black', rwidth=0.85)
     plt.title('Histograma de la distribución')
     plt.xlabel('Valores')
     plt.ylabel('Frecuencia')
