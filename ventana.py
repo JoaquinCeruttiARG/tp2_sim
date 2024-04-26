@@ -158,9 +158,9 @@ def ventana_principal():
             entry_generados.config(state="disabled")
 
         print(lam)
-        cc, ct, ksc = pruebas_bondad.prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam)
+        cc, ct, ksc, kst = pruebas_bondad.prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam)
         print(cc, ct, ksc)
-        texto_prueba = f"Chi-2 Calculado: {cc}\nChi-2 Tabulado: {ct}\nKS Calculado: {ksc}"
+        texto_prueba = f"Chi-2 Calculado: {cc}\nChi-2 Tabulado: {ct}\nKS Calculado: {ksc}\nKS Tabulado: {kst}"
 
         # Activar el entry_pruebas y agregar el texto
         entry_pruebas.config(state="normal")

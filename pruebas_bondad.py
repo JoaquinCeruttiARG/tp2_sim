@@ -1,5 +1,5 @@
 import math
-
+from scipy.stats import ksone
 import numpy as np
 from scipy.stats import chi2_contingency, stats
 
@@ -23,8 +23,19 @@ def chi2_tabla(intervalos, dist):
     return alpha_09[gl-1]
 
 
-def ks_tabla(intervalos, dist):
-    pass
+def ks_tabla(lista):
+    tamano = len(lista)
+
+    if tamano > 35:
+        ks_tabla = 1.22 / math.sqrt(tamano)
+    else:
+        # Calcula la tabla de valores críticos utilizando ksone
+        ks_tabla = ksone.ppf(1 - 0.1 / 2, tamano)  # 0.1 para un nivel de significancia de 0.1
+    return ks_tabla
+
+
+
+
 
 
 def c_fe_uniforme(lista_valores, intervalos):
@@ -115,9 +126,10 @@ def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
     chi_tabla = chi2_tabla(intervalo_seleccionado, distribucion_seleccionada)
 
     ks_calculado, p = stats.ks_2samp(observed_freq, expected_freq)
+    ks_tab = ks_tabla(lista)
 
 
-    return chi_calculado, chi_tabla, ks_calculado
+    return chi_calculado, chi_tabla, ks_calculado, ks_tab
 
 
 
