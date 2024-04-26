@@ -4,6 +4,9 @@ import visualizacion
 import subprocess
 import os
 import tkinter.messagebox as messagebox
+from scipy.stats import chi2_contingency
+import numpy as np
+import pruebas_bondad
 
 # Variable global para mantener el índice actual de la lista
 indice_actual = 0
@@ -85,9 +88,10 @@ def ventana_principal():
 
     # Función de botón confirmar  ---------------------------------------------
     def confirmar():
-        global lista
+        global lista, expected_freq
         global indice_actual
         global intervalo_seleccionado
+        lam = 0
 
         # Variable donde se almacena el tipo de distribucion seleccionada
         distribucion_seleccionada = ""
@@ -152,6 +156,17 @@ def ventana_principal():
             for elemento in lista[:200]:
                 entry_generados.insert(tk.END, str(elemento) + "\n")
             entry_generados.config(state="disabled")
+
+        print(lam)
+        cc, ct, ksc = pruebas_bondad.prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam)
+        print(cc, ct, ksc)
+        texto_prueba = f"Chi-2 Calculado: {cc}\nChi-2 Tabulado: {ct}\nKS Calculado: {ksc}"
+
+        # Activar el entry_pruebas y agregar el texto
+        entry_pruebas.config(state="normal")
+        entry_pruebas.delete("1.0", tk.END)  # Borra cualquier contenido anterior
+        entry_pruebas.insert(tk.END, texto_prueba)
+        entry_pruebas.config(state="disabled")
 
 
     # Función para mostrar la imagen generada ---------------------------------------------
@@ -334,6 +349,14 @@ def ventana_principal():
 
     boton_sig = tk.Button(frame, text="Siguiente", command=siguiente)
     boton_sig.grid(row=9, column=2)
+
+
+    # Chi2 y KS ---------------------------------------------
+    label_pruebas = tk.Label(frame, text="Pruebas de Bondad: ")
+    label_pruebas.grid(row=10, column=0, padx=10, pady=10, sticky=tk.W)
+
+    entry_pruebas = tk.Text(frame, width=50, height=5, state="disabled")
+    entry_pruebas.grid(row=11, column=0, columnspan=3, padx=10, pady=10)
 
     ventana.mainloop()
 
