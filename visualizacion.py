@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def frecuenciasObservadas(numeros, intervalos):
     limites = np.linspace(min(numeros), max(numeros), intervalos + 1)  # Genera límites igualmente espaciados para los intervalos
 

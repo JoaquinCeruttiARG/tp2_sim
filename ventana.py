@@ -4,15 +4,16 @@ import visualizacion
 import subprocess
 import os
 import tkinter.messagebox as messagebox
-from scipy.stats import chi2_contingency
-import numpy as np
 import pruebas_bondad
+
 
 # Variable global para mantener el índice actual de la lista
 indice_actual = 0
 
+
 # Lista global donde se almacenan los valores generados
 lista =[]
+
 
 # Variable global para almacenar el valor del intervalo seleccionado
 intervalo_seleccionado = 10
@@ -83,7 +84,6 @@ def ventana_principal():
                 else:
                     # Actualizar la variable de intervalo seleccionado
                     intervalo_seleccionado = lista_intervalos[contador]
-                    print(intervalo_seleccionado)
 
 
     # Función de botón confirmar  ---------------------------------------------
@@ -157,9 +157,15 @@ def ventana_principal():
                 entry_generados.insert(tk.END, str(elemento) + "\n")
             entry_generados.config(state="disabled")
 
-        print(lam)
+        print("lista TAMAÑO : ", len(lista))
+        print("Maximo: ", max(lista))
+        print("minimo: ", min(lista))
+        print("intervalo: ", intervalo_seleccionado)
+        print("distribucion: ", distribucion_seleccionada)
+        print("lambda: ", lam)
+
+
         cc, ct, ksc, kst = pruebas_bondad.prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam)
-        print(cc, ct, ksc)
         texto_prueba = f"Chi-2 Calculado: {cc}\nChi-2 Tabulado: {ct}\nKS Calculado: {ksc}\nKS Tabulado: {kst}"
 
         # Activar el entry_pruebas y agregar el texto
@@ -192,10 +198,6 @@ def ventana_principal():
             entry_generados.config(state="disabled")
             indice_actual += 200
 
-        # Pruebas
-        print(indice_actual)
-        print(len(lista))
-
 
     def mostrar_anteriores_numeros():
         global indice_actual
@@ -209,10 +211,6 @@ def ventana_principal():
                 entry_generados.insert(tk.END, str(elemento) + "\n")
             entry_generados.config(state="disabled")
             indice_actual -= 200
-
-            # Pruebas
-            print(indice_actual)
-            print(len(lista))
 
 
     # Funcion siguiente y anterior ---------------------------------------------

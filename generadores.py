@@ -46,6 +46,6 @@ def generar_normal(media, desviacion, N):
     numeros_generados = []
     for _ in range(N):
         u1, u2 = random.random(), random.random()
-        z0 = math.sqrt(-2.0 * math.log(u1)) * math.cos(2.0 * math.pi * u2)
+        z0 = math.sqrt(-2.0 * math.log(1-u1)) * math.cos(2.0 * math.pi * u2)
         numeros_generados.append(round(media + desviacion * z0, 4))
     return numeros_generados
