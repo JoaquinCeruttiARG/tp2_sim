@@ -35,25 +35,16 @@ def ks_tabla(lista):
     return ks_tabla
 
 
-def c_fe_uniforme(lista_valores, intervalos):
+def c_fe_uniforme(lista_valores, intervalos, tamano):
     f_esperada = [0] * intervalos
-    total = len(lista_valores)
-    fe = total / intervalos
+    fe = tamano / intervalos
     for f in range(intervalos):
         f_esperada[f] = fe
-    print("fe esperada uniforme: ", f_esperada)
     return f_esperada
 
 
 # Calcula las frecuencias esperadas de una distribución normal
-def c_fe_normal(lista_valores, intervalos):
-    media = np.mean(lista_valores)
-    print("Media de np: ", media)
-    desviacion = np.std(lista_valores)
-    print("Desviacion de np: ", desviacion)
-
-    li, ls, pm = c_limites(lista_valores, intervalos)
-
+def c_fe_normal(lista_valores, intervalos, media, desviacion, li, ls, pm):
     f_esperada = []
     for i in range(intervalos):
         limite_inferior = li[i]
@@ -66,14 +57,11 @@ def c_fe_normal(lista_valores, intervalos):
 
         fe = resultado * len(lista_valores)
         f_esperada.append(fe)
-    print("fe esperada normal: ", sum(f_esperada))
     return f_esperada
 
 
 # Calcula las frecuencias esperadas de una distribución exponencial
-def c_fe_exponencial(lista_valores, lam, intervalos):
-    li, ls, pm = c_limites(lista_valores, intervalos)
-    tamano = len(lista_valores)
+def c_fe_exponencial(lam, intervalos, li, ls, tamano):
 
     f_esperada = [0] * intervalos
 
@@ -82,8 +70,6 @@ def c_fe_exponencial(lista_valores, lam, intervalos):
 
         # Multiplica por el tamaño total de la muestra
         f_esperada[i] *= tamano
-
-    print("fe esperada exponencial: ", sum(f_esperada))
     return f_esperada
 
 
@@ -107,27 +93,50 @@ def c_limites(lista_valores, intervalos):
 
     for i in range(intervalos):
         puntos_Medio[i] = (LS[i] + LI[i]) / 2  # Calculamos el punto medio de cada intervalo
-
-    print("LI:", LI)
-    print("LD: ", LS)
-    print("PUNTO MEDIO: ", puntos_Medio)
     return LI, LS, puntos_Medio
 
 
-# Calcula chi2 y compara con la tabla, devuelve analisis de las pruebas
+def c_valores(lista, intervalos):
+    maximo = max(lista)
+    minimo = min(lista)
+    tamano = len(lista)
+    amplitud = tamano / intervalos
+    rango = maximo - minimo
+    media = np.mean(lista)
+    desviacion = np.std(lista)
+
+    return maximo, minimo, tamano, amplitud, rango, media, desviacion
+
+
+def c_frec_observadas(lista, intervalos, li, ls):
+
+    frecuencias_observadas = [0] * intervalos
+
+    for n in lista:
+        for i in range(intervalos):
+            if li[i] <= n <= ls[i]:
+                frecuencias_observadas[i] += 1
+
+    return frecuencias_observadas
+
+
+# Calcula chi2, KS y compara con las tablas, devuelve analisis de las pruebas
 def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
     # Realizar la prueba de chi-cuadrado
     global expected_freq
 
-    observed_freq, intervalos = np.histogram(lista, bins=intervalo_seleccionado)
-    print(intervalos)
+    # Generamos los respectivos valores
+    li, ls, pm = c_limites(lista, intervalo_seleccionado)
+    maximo, minimo, tamano, amplitud, rango, media, desviacion = c_valores(lista, intervalo_seleccionado)
+
+    observed_freq = c_frec_observadas(lista, intervalo_seleccionado, li, ls)
 
     if distribucion_seleccionada == "uniforme":
-        expected_freq = c_fe_uniforme(lista, intervalo_seleccionado)
+        expected_freq = c_fe_uniforme(lista, intervalo_seleccionado, tamano)
     elif distribucion_seleccionada == "normal":
-        expected_freq = c_fe_normal(lista, intervalo_seleccionado)
+        expected_freq = c_fe_normal(lista, intervalo_seleccionado, media, desviacion, li, ls, pm)
     elif distribucion_seleccionada == "exponencial":
-        expected_freq = c_fe_exponencial(lista, lam, intervalo_seleccionado)
+        expected_freq = c_fe_exponencial(lam, intervalo_seleccionado, li, ls, tamano)
 
     chi_calculado, p_val, fe, tc = chi2_contingency([observed_freq, expected_freq])
     chi_tabla = chi2_tabla(intervalo_seleccionado, distribucion_seleccionada)
@@ -135,24 +144,21 @@ def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
     ks_calculado, p = stats.ks_2samp(observed_freq, expected_freq)
     ks_tab = ks_tabla(lista)
 
-    print("frecuencia observada: ", observed_freq)
-    print("frecuencia esperada: ", expected_freq)
 
-    media = np.mean(lista)
-    print("Media de np: ", media)
-    desviacion = np.std(lista)
-    print("Desviacion de np: ", desviacion)
-    maximo = max(lista)
-    minimo = min(lista)
-    rango = maximo - minimo
-    amplitud = rango / intervalos
+    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud)
 
-    #li, ls, pm = c_limites(lista, intervalos)
-
-    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, len(lista), maximo, minimo, rango, len(intervalos), amplitud )
+    print("Distribucion: ", distribucion_seleccionada)
+    print("Máximo:", maximo)
+    print("Mínimo:", minimo)
+    print("Tamaño:", tamano)
+    print("Amplitud:", amplitud)
+    print("Rango:", rango)
+    print("Media:", media)
+    print("Desviación Estándar:", desviacion)
+    print("Límite Inferior:", li)
+    print("Límite Superior:", ls)
+    print("Punto Medio:", pm)
 
     return chi_calculado, chi_tabla, ks_calculado, ks_tab
 
-
-    #generar_excel(numeros, "datos.xlsx", media, n, maximo, minimo, rango, intervalos, amplitud)
 

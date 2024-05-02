@@ -157,13 +157,6 @@ def ventana_principal():
                 entry_generados.insert(tk.END, str(elemento) + "\n")
             entry_generados.config(state="disabled")
 
-        print("lista TAMAÑO : ", len(lista))
-        print("Maximo: ", max(lista))
-        print("minimo: ", min(lista))
-        print("intervalo: ", intervalo_seleccionado)
-        print("distribucion: ", distribucion_seleccionada)
-        print("lambda: ", lam)
-
 
         cc, ct, ksc, kst = pruebas_bondad.prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam)
         texto_prueba = f"Chi-2 Calculado: {cc}\nChi-2 Tabulado: {ct}\nKS Calculado: {ksc}\nKS Tabulado: {kst}"
