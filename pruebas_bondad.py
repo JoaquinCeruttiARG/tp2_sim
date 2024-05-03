@@ -1,5 +1,5 @@
 import math
-from scipy.stats import ksone
+from scipy.stats import ksone, chi2
 import numpy as np
 from scipy.stats import chi2_contingency, stats
 import generador_excel
@@ -15,13 +15,19 @@ def chi2_tabla(intervalos, dist):
     elif dist == "exponencial":
         gl = intervalos - 2
 
-    alpha_09 = [0.016, 0.211, 0.352, 0.711, 1.61, 2.204, 2.833, 3.49, 4.168,
-                4.865, 5.578, 6.304, 7.041, 7.79, 8.547, 9.312, 10.085, 10.865, 11.651,
-                12.443, 13.24, 14.041, 14.848, 15.659, 16.473, 17.292, 18.114, 18.939,
-                19.768, 20.599, 24.797, 29.051, 33.35, 37.689, 42.06, 46.459, 50.883,
-                55.329, 59.795, 64.278, 68.777, 73.291, 77.818, 82.358]
+    chi2_critico = chi2.ppf(1 - 0.1, gl)
 
-    return alpha_09[gl-1]
+    return chi2_critico
+
+
+def chi_cuadrado(Esperadas, Observadas):
+    lista_chi2 = [0] * len(Observadas)
+    for i, (obs, esp) in enumerate(zip(Observadas, Esperadas)):
+        lista_chi2[i] = ((obs - esp) ** 2) / esp
+
+    chi_cuadrado = sum(lista_chi2)
+
+    return chi_cuadrado, lista_chi2
 
 
 def ks_tabla(lista):
@@ -35,7 +41,7 @@ def ks_tabla(lista):
     return ks_tabla
 
 
-def c_fe_uniforme(lista_valores, intervalos, tamano):
+def c_fe_uniforme(intervalos, tamano):
     f_esperada = [0] * intervalos
     fe = tamano / intervalos
     for f in range(intervalos):
@@ -100,8 +106,8 @@ def c_valores(lista, intervalos):
     maximo = max(lista)
     minimo = min(lista)
     tamano = len(lista)
-    amplitud = tamano / intervalos
     rango = maximo - minimo
+    amplitud = rango / intervalos
     media = np.mean(lista)
     desviacion = np.std(lista)
 
@@ -131,21 +137,33 @@ def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
 
     observed_freq = c_frec_observadas(lista, intervalo_seleccionado, li, ls)
 
+    observed_freq2, intervalos2 = np.histogram(lista, bins=intervalo_seleccionado)
+    print("Frecuencias observadas por libreria: ", observed_freq2)
+    print("INTERVALOS DE LIBRERIA: ", intervalos2)
+    print("TAMANO INTLIB: ", len(intervalos2))
+    print("FOBS POR MI: ", observed_freq)
+
     if distribucion_seleccionada == "uniforme":
-        expected_freq = c_fe_uniforme(lista, intervalo_seleccionado, tamano)
+        expected_freq = c_fe_uniforme(intervalo_seleccionado, tamano)
     elif distribucion_seleccionada == "normal":
         expected_freq = c_fe_normal(lista, intervalo_seleccionado, media, desviacion, li, ls, pm)
     elif distribucion_seleccionada == "exponencial":
         expected_freq = c_fe_exponencial(lam, intervalo_seleccionado, li, ls, tamano)
 
-    chi_calculado, p_val, fe, tc = chi2_contingency([observed_freq, expected_freq])
+    chi_calculado, lista_chi2 = chi_cuadrado(expected_freq, observed_freq)
     chi_tabla = chi2_tabla(intervalo_seleccionado, distribucion_seleccionada)
 
+
+    # Prueba
+    chi_calculado2, p_val, fe, tc = chi2_contingency([observed_freq, expected_freq])
+    print("Chi2 calculado por libreria: ", chi_calculado2)
+    print("Por mi: ", chi_calculado)
+
     ks_calculado, p = stats.ks_2samp(observed_freq, expected_freq)
+
     ks_tab = ks_tabla(lista)
 
-
-    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud)
+    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud, expected_freq, observed_freq, li, ls, pm, lista_chi2, chi_calculado)
 
     print("Distribucion: ", distribucion_seleccionada)
     print("Máximo:", maximo)
@@ -158,7 +176,11 @@ def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
     print("Límite Inferior:", li)
     print("Límite Superior:", ls)
     print("Punto Medio:", pm)
+    print("FESP: ", expected_freq)
+    print("FOBS: ", observed_freq)
 
     return chi_calculado, chi_tabla, ks_calculado, ks_tab
+
+
 
 

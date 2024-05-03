@@ -6,10 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="351e51ec-95c7-4bad-816a-ee62c7f7be2c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DistribucionAleatoria.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/DistribucionAleatoria.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/histograma.png" beforeDir="false" afterPath="$PROJECT_DIR$/histograma.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistribucionAleatoria.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LISTAS DE CHI2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generador_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/generador_excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/histograma.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pruebas_bondad.py" beforeDir="false" afterPath="$PROJECT_DIR$/pruebas_bondad.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ventana.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventana.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +49,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/joaqu/Desktop/tp2_sim&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -56,6 +58,36 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="pruebas_bondad" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tp2_sim" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pruebas_bondad.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.pruebas_bondad" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,6 +107,10 @@
       <workItem from="1714417462179" duration="1549000" />
       <workItem from="1714620788487" duration="6509000" />
       <workItem from="1714672359663" duration="4097000" />
+      <workItem from="1714678750719" duration="1487000" />
+      <workItem from="1714680259194" duration="25000" />
+      <workItem from="1714680323091" duration="1708000" />
+      <workItem from="1714685861167" duration="6213000" />
     </task>
     <servers />
   </component>
@@ -85,9 +121,9 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/tp2_sim$pruebas_bondad.coverage" NAME="pruebas_bondad Coverage Results" MODIFIED="1714674413255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/tp2_sim$pruebas_bondad.coverage" NAME="pruebas_bondad Coverage Results" MODIFIED="1714699407669" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/tp2_sim$BOLUDECES.coverage" NAME="BOLUDECES Coverage Results" MODIFIED="1714623940403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/tp2_sim$ventana.coverage" NAME="ventana Coverage Results" MODIFIED="1714678252715" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/tp2_sim$generador_excel.coverage" NAME="generador_excel Coverage Results" MODIFIED="1714626682349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/tp2_sim$ventana.coverage" NAME="ventana Coverage Results" MODIFIED="1714700282005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/tp2_sim$generador_excel.coverage" NAME="generador_excel Coverage Results" MODIFIED="1714690186872" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
