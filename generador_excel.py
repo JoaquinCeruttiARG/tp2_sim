@@ -2,15 +2,15 @@ import pandas as pd
 import os
 
 def generar_excel(lista_numeros, nombre_archivo, media, n, maximo, minimo, rango, intervalos, amplitud, fe, fo, li, ls,
-                  pm, lista_chi2, chi, poac, peac, maxdiff, po, pe, listadiffs):
+                  pm, lista_chi2, chi, poac, peac, maxdiff, po, pe, listadiffs, des):
 
     # Crear un DataFrame con los números en una columna
     df_numeros = pd.DataFrame({"Números": lista_numeros})
 
     # Crear un DataFrame con los valores adicionales
     df_valores = pd.DataFrame({
-        "Descripción": ["Media", "N (Tamaño)", "Máximo", "Mínimo", "Rango", "Intervalos", "Amplitud"],
-        "Valores": [media, n, maximo, minimo, rango, intervalos, amplitud]
+        "Descripción": ["Media", "N (Tamaño)", "Máximo", "Mínimo", "Rango", "Intervalos", "Amplitud", "Desviacion"],
+        "Valores": [media, n, maximo, minimo, rango, intervalos, amplitud, des]
     })
 
     # Añadir una columna en blanco en la columna C
@@ -50,6 +50,8 @@ def generar_excel(lista_numeros, nombre_archivo, media, n, maximo, minimo, rango
             "Intervalos": intervalos_auto + ["-"],  # Utilizamos los mismos intervalos
             "Li": li + ["-"],  # Utilizamos los mismos límites inferiores
             "Ls": ls + ["-"],  # Utilizamos los mismos límites superiores
+            "Fe": fe + [sum(fe)],
+            "Fo": fo + [sum(fo)],
             "Pobs": po + [sum(po)],  # Lista de pobs
             "Pesp": pe + [sum(pe)],  # Lista de pesp
             "Poac": poac + ["-"],  # Lista de poac
@@ -59,7 +61,7 @@ def generar_excel(lista_numeros, nombre_archivo, media, n, maximo, minimo, rango
 
         # Insertar la segunda tabla adicional después de la primera
         df_segunda_tabla.to_excel(writer, startrow=pos_fin_tabla, startcol=10, index=False, sheet_name="Datos",
-                                  header=["Intervalos", "Li", "Ls", "Pobs", "Pesp", "Poac", "Peac", "Diff"])
+                                  header=["Intervalos", "Li", "Ls", "Fe", "Fo", "Pobs", "Pesp", "Poac", "Peac", "Diff"])
 
     # Abrir el archivo de Excel
     os.system("start EXCEL.EXE {}".format(nombre_archivo))

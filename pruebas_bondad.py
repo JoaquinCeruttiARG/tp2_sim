@@ -197,7 +197,7 @@ def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
 
     ks_tab = c_ks_tabla(lista)
 
-    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud, expected_freq, observed_freq, li, ls, pm, lista_chi2, chi_calculado, pobs_ac, pesp_ac, ks_calculado, pobs, pesp, lista_difks)
+    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud, expected_freq, observed_freq, li, ls, pm, lista_chi2, chi_calculado, pobs_ac, pesp_ac, ks_calculado, pobs, pesp, lista_difks, desviacion)
 
     print("Distribucion: ", distribucion_seleccionada)
     print("Máximo:", maximo)
