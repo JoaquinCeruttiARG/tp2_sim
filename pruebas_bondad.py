@@ -36,6 +36,7 @@ def c_ks_tabla(lista):
     ks_tabla = ksone.ppf(1 - 0.1 / 2, tamano)  # 0.1 para un nivel de significancia de 0.1
     return ks_tabla
 
+
 def calcula_ks(poac, peac, intervalos):
     diferencia_prob_ac = [0] * intervalos
     max_dif = 0
@@ -46,6 +47,7 @@ def calcula_ks(poac, peac, intervalos):
     max_dif = max(diferencia_prob_ac)
 
     return diferencia_prob_ac, max_dif
+
 
 def c_fe_uniforme(intervalos, tamano):
     f_esperada = [0] * intervalos
@@ -195,7 +197,7 @@ def prueba(lista, intervalo_seleccionado, distribucion_seleccionada, lam):
 
     ks_tab = c_ks_tabla(lista)
 
-    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud, expected_freq, observed_freq, li, ls, pm, lista_chi2, chi_calculado)
+    generador_excel.generar_excel(lista, "DistribucionAleatoria.xlsx", media, tamano, maximo, minimo, rango, intervalo_seleccionado, amplitud, expected_freq, observed_freq, li, ls, pm, lista_chi2, chi_calculado, pobs_ac, pesp_ac, ks_calculado, pobs, pesp, lista_difks)
 
     print("Distribucion: ", distribucion_seleccionada)
     print("Máximo:", maximo)

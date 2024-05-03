@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 def generar_excel(lista_numeros, nombre_archivo, media, n, maximo, minimo, rango, intervalos, amplitud, fe, fo, li, ls,
-                  pm, lista_chi2, chi):
+                  pm, lista_chi2, chi, poac, peac, maxdiff, po, pe, listadiffs):
 
     # Crear un DataFrame con los números en una columna
     df_numeros = pd.DataFrame({"Números": lista_numeros})
@@ -44,6 +44,22 @@ def generar_excel(lista_numeros, nombre_archivo, media, n, maximo, minimo, rango
         # Insertar la tabla adicional en la posición calculada
         df_tabla.to_excel(writer, startrow=pos_inicio_tabla, startcol=10, index=False, sheet_name="Datos",
                           header=["Intervalos", "Li", "Ls", "Pm", "Fe", "Fo", "Chi2"])
+
+        # Agregar la segunda tabla adicional
+        df_segunda_tabla = pd.DataFrame({
+            "Intervalos": intervalos_auto + ["-"],  # Utilizamos los mismos intervalos
+            "Li": li + ["-"],  # Utilizamos los mismos límites inferiores
+            "Ls": ls + ["-"],  # Utilizamos los mismos límites superiores
+            "Pobs": po + [sum(po)],  # Lista de pobs
+            "Pesp": pe + [sum(pe)],  # Lista de pesp
+            "Poac": poac + ["-"],  # Lista de poac
+            "Peac": peac + ["KS: "],  # Lista de peac
+            "Diff": listadiffs + [maxdiff]  # Lista de diffs
+        })
+
+        # Insertar la segunda tabla adicional después de la primera
+        df_segunda_tabla.to_excel(writer, startrow=pos_fin_tabla, startcol=10, index=False, sheet_name="Datos",
+                                  header=["Intervalos", "Li", "Ls", "Pobs", "Pesp", "Poac", "Peac", "Diff"])
 
     # Abrir el archivo de Excel
     os.system("start EXCEL.EXE {}".format(nombre_archivo))
