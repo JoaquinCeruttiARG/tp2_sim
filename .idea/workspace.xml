@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="351e51ec-95c7-4bad-816a-ee62c7f7be2c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generador_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/generador_excel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pruebas_bondad.py" beforeDir="false" afterPath="$PROJECT_DIR$/pruebas_bondad.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventana.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventana.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +110,8 @@
       <workItem from="1714685861167" duration="6213000" />
       <workItem from="1714702248772" duration="2417000" />
       <workItem from="1714705567220" duration="1855000" />
+      <workItem from="1714711311598" duration="26000" />
+      <workItem from="1714711340114" duration="1341000" />
     </task>
     <servers />
   </component>
@@ -120,9 +122,9 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/tp2_sim$pruebas_bondad.coverage" NAME="pruebas_bondad Coverage Results" MODIFIED="1714706918044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/tp2_sim$pruebas_bondad.coverage" NAME="pruebas_bondad Coverage Results" MODIFIED="1714711390965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/tp2_sim$BOLUDECES.coverage" NAME="BOLUDECES Coverage Results" MODIFIED="1714623940403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/tp2_sim$ventana.coverage" NAME="ventana Coverage Results" MODIFIED="1714706984423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/tp2_sim$ventana.coverage" NAME="ventana Coverage Results" MODIFIED="1714712222098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/tp2_sim$generador_excel.coverage" NAME="generador_excel Coverage Results" MODIFIED="1714690186872" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -130,9 +130,12 @@ def ventana_principal():
                 indice_actual = 0
                 lista = g.generar_normal(media, desviacion, tamano_muestra)
         elif distribucion_seleccionada == "exponencial":
-            if isinstance(lam, (float, int)):
+            if isinstance(lam, (float, int)) and lam > 0:
                 indice_actual = 0
                 lista = g.generar_exponencial(lam, tamano_muestra)
+            else:
+                messagebox.showinfo("Error", "Lambda debe ser mayor a 0")
+                return;
         elif distribucion_seleccionada == "uniforme":
             if isinstance(limite_inferior, (float, int)) and isinstance(limite_superior, (float, int)):
                 indice_actual = 0
